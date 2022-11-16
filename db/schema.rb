@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_16_222208) do
+ActiveRecord::Schema.define(version: 2022_11_16_225405) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "photo_id"
@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(version: 2022_11_16_222208) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "email"
+    t.string "password_digest"
     t.string "username"
     t.boolean "private"
     t.integer "likes_count"
