@@ -39,9 +39,17 @@
     <td> <%= user.username  %> </td>
     <td> <%= user.private %> </td>
     <td> 
-        <button> Follow </button> 
-    
-    
+        <% if FollowRequest.all.where({:recipient_id => user.id}).where({:sender_id => @signed_user.id}).at(0) != nil %>
+          <% if FollowRequest.all.where({:recipient_id => user.id}).where({:sender_id => @signed_user.id}).at(0).status == "accepted"%>
+            <a href="/unfollow"> Unfollow  </a>
+          <% elsif  FollowRequest.all.where({:recipient_id => user.id}).where({:sender_id => @signed_user.id}).at(0).status == "pending"%>
+            Request sent <a href="/cancel_request"> Cancel  </a>
+          <% elsif  FollowRequest.all.where({:recipient_id => user.id}).where({:sender_id => @signed_user.id}).at(0).status == "rejected"%>
+          <% end %>
+        <% else  %>
+            <button> Follow   </button>
+        <% end  %>
+
     </td>
 
     <td> <a href="/users/<%= user.username %>"> Show details </a> </td>
