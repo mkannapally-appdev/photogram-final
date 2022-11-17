@@ -18,7 +18,6 @@ class UserAuthenticationController < ApplicationController
         redirect_to("/user_sign_in", { :alert => "Incorrect password." })
       else
         session[:user_id] = user.id
-      
         redirect_to("/", { :notice => "Signed in successfully." })
       end
     else
@@ -28,7 +27,6 @@ class UserAuthenticationController < ApplicationController
 
   def destroy_cookies
     reset_session
-
     redirect_to("/", { :notice => "Signed out successfully." })
   end
 
@@ -43,14 +41,11 @@ class UserAuthenticationController < ApplicationController
     @user.password_confirmation = params.fetch("query_password_confirmation")
     @user.username = params.fetch("query_username")
     @user.private = params.fetch("query_private", false)
-    @user.likes_count = params.fetch("query_likes_count")
-    @user.comments_count = params.fetch("query_comments_count")
 
     save_status = @user.save
 
     if save_status == true
       session[:user_id] = @user.id
-   
       redirect_to("/", { :notice => "User account created successfully."})
     else
       redirect_to("/user_sign_up", { :alert => @user.errors.full_messages.to_sentence })

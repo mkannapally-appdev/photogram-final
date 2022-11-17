@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
   # Routes for the Photo resource:
 
+
+  get("/users" , {:controller => "users" , :action => "index"})
+
+  get("/users/:path_id" , {:controller => "users" , :action => "show"})
+
+  get("/" , {:controller => "users" , :action => "index"})
+
+
   # CREATE
   post("/insert_photo", { :controller => "photos", :action => "create" })
           
