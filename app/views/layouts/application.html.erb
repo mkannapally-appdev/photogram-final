@@ -31,6 +31,15 @@
       <li> <a href="/user_sign_out"> Sign out </a> </li>
     </ul>
     <% end %>
+
+    <% if notice.present? %>
+      <div> <%= notice %> </div>
+    <% end %>
+
+    <% if alert.present? %>
+      <div> <%= alert %> </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
