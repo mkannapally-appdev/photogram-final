@@ -21,6 +21,26 @@ class User < ApplicationRecord
     return Comment.where({:author_id => self.id})
   end
 
+  def own_photos
+    return Photo.where({ :owner_id => self.id })
+  end
+
+  def likes
+    return Like.where({ :fan_id => self.id })
+  end
+
+  def liked_photos
+    array_of_photo_ids = self.likes.map_relation_to_array(:photo_id)
+
+    return Photo.where({ :id => array_of_photo_ids })
+  end
+
+  def commented_photos
+    array_of_photo_ids = self.comments.map_relation_to_array(:photo_id)
+
+    return Photo.where({ :id => array_of_photo_ids }).distinct
+  end
+  
   def sent_follow_requests
     return FollowRequest.where({ :sender_id => self.id })
   end

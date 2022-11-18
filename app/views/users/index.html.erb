@@ -15,7 +15,13 @@
   <% @users.each do |user| %>
   <tr>
     <td> <%= user.username  %> </td>
-    <td> <%= user.private %> </td>
+    <td> 
+      <% if user.private == true %>
+        Yes
+      <% else %>
+        No
+      <% end %>
+    </td>
     
     <td> <a href="/users/<%= user.username %>"> Show details </a> </td>
   </tr>
@@ -37,7 +43,13 @@
   <% @users.each do |user| %>
   <tr>
     <td> <%= user.username  %> </td>
-    <td> <%= user.private %> </td>
+     <td> 
+      <% if user.private == true %>
+        Yes
+      <% else %>
+        No
+      <% end %>
+    </td>
     <td> 
         <% if FollowRequest.all.where({:recipient_id => user.id}).where({:sender_id => @signed_user.id}).at(0) != nil %>
           <% if FollowRequest.all.where({:recipient_id => user.id}).where({:sender_id => @signed_user.id}).at(0).status == "accepted"%>
