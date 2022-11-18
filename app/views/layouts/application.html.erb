@@ -27,7 +27,7 @@
     <ul>
       <li> <a href="/users"> All Users </a> </li>
       <li> <a href="/photos"> All Public Photos </a> </li>
-      <li> <a href="users/<%= User.all.where({:id => session.fetch(:user_id)}).first.username %>"> <%= User.all.where({:id => session.fetch(:user_id)}).first.username %> </a> </li>
+      <li> <a href="/users/<%= User.all.where({:id => session.fetch(:user_id)}).first.username %>"> <%= User.all.where({:id => session.fetch(:user_id)}).first.username %> </a> </li>
       <li> <a href="/user_sign_out"> Sign out </a> </li>
     </ul>
     <% end %>

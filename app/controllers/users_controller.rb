@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   def show
     the_username = params.fetch("username")
     @user = User.where({ :username => the_username }).at(0)
+    @signed_user = User.all.where({:id => session.fetch(:user_id)}).first
 
     render({:template => "users/show.html.erb"})
   end

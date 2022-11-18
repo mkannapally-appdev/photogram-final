@@ -1,3 +1,4 @@
+
 <h1> <%= @user.username %> </h1>
 
 <dl>
@@ -6,8 +7,31 @@
 
   <dt> Followers </dt>
   <dd> <%= @user.followers.count %> </dd>
-  <dd>  </dd>
 
+  <% if @user != @signed_user %>
+  <dd>  
+    <% if FollowRequest.all.where({:recipient_id => @user.id}).where({:sender_id => @signed_user.id}).at(0) != nil %>
+          <% if FollowRequest.all.where({:recipient_id => @user.id}).where({:sender_id => @signed_user.id}).at(0).status == "accepted"%>
+            <a href="/unfollow"> Unfollow  </a>
+          <% elsif  FollowRequest.all.where({:recipient_id => @user.id}).where({:sender_id => @signed_user.id}).at(0).status == "pending"%>
+            Request sent <a href="/cancel_request"> Cancel  </a>
+          <% elsif  FollowRequest.all.where({:recipient_id => @user.id}).where({:sender_id => @signed_user.id}).at(0).status == "rejected"%>
+          <% end %>
+        <% else  %>
+            <button> Follow   </button>
+        <% end  %>
+  </dd>
+  <% else %>
+    <dd> </dd>
+    <dd> 
+      <h4> Pending follow requests </h4> 
+      <%= @user.pending_received_follow_requests.inspect %>      
+    
+    </dd>
+  <%end %>
+
+
+  
   <dt> Following </dt>
   <dd> <%= @user.following.count %> </dd>
 
@@ -41,6 +65,10 @@
       Posted
     </th>
 
+    <th>
+      Likes
+    </th>
+
     <th></th>
   </tr>
 
@@ -62,6 +90,8 @@
       <%= photo.created_at %>
     </td>
     
+    <td> <%= photo.likes.count %> </td>
+
     <td>
       <a href="/photos/<%= photo.id %>">
         Show details

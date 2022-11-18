@@ -40,7 +40,7 @@ class User < ApplicationRecord
 
     return Photo.where({ :id => array_of_photo_ids }).distinct
   end
-  
+
   def sent_follow_requests
     return FollowRequest.where({ :sender_id => self.id })
   end
@@ -55,6 +55,10 @@ class User < ApplicationRecord
 
   def accepted_received_follow_requests
     return self.received_follow_requests.where({ :status => "accepted" })
+  end
+
+  def pending_received_follow_requests
+    return self.received_follow_requests.where({ :status => "pending" })
   end
 
   def followers
