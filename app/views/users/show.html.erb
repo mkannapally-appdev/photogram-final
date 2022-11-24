@@ -25,8 +25,13 @@
     <dd> </dd>
     <dd> 
       <h4> Pending follow requests </h4> 
-      <%= @user.pending_received_follow_requests.inspect %>      
-    
+      <ul>
+        <% @user.pending_received_follow_requests.each do |pending_request| %>
+        <li>
+            <%= User.where({:id => pending_request.sender_id}).at(0).username %>
+        </li>
+        <% end %>      
+      </ul>
     </dd>
   <%end %>
 
@@ -35,6 +40,21 @@
   <dt> Following </dt>
   <dd> <%= @user.following.count %> </dd>
 
+  <% if @user == @signed_user %>
+  <dt> Edit user </dt>
+  <dd> 
+    <form action="update_user/<%= @user.id %>" method="post">
+      <label for="modify_username"> Username </label>
+      <input type="text" id="modify_username" name="query_username" value="<%= @user.username %>">
+
+      <label for="private_status"> Private? </label>
+      <input type="checkbox" id="modify_username" name="query_private" value="<%= @user.private %>" >
+
+      <button> Update user </button>
+    </form>
+
+  </dd>
+  <% end %>
 </dl>
 
 <ul>
@@ -87,7 +107,7 @@
     </td>
 
     <td>
-      <%= photo.created_at %>
+      <%= time_ago_in_words(photo.created_at) %> ago
     </td>
     
     <td> <%= photo.likes.count %> </td>

@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      Photo #<%= @the_photo.id %> details
+      Photo details
     </h1>
 
     <div>
@@ -23,7 +23,7 @@
         Image
       </dt>
       <dd>
-        <%= @the_photo.image %>
+        <img src= "<%= @the_photo.image %>">      
       </dd>
 
       <dt>
@@ -37,7 +37,14 @@
         Owner
       </dt>
       <dd>
-        <%= @the_photo.owner_id %>
+        <%= @the_photo.poster.username %>
+      </dd>
+
+      <dt>
+        Posted
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_photo.created_at) %> ago
       </dd>
 
       <dt>
@@ -53,20 +60,14 @@
       <dd>
         <%= @the_photo.comments_count %>
       </dd>
+      
+      <dt> Fans  </dt>
+      <dd>  </dd>
 
-      <dt>
-        Created at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_photo.created_at) %> ago
-      </dd>
+      <dt> Add a Fan </dt>
+      <dd>    </dd>
 
-      <dt>
-        Updated at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_photo.updated_at) %> ago
-      </dd>
+      
     </dl>
   </div>
 </div>
