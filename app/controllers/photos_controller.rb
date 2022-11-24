@@ -9,6 +9,7 @@ class PhotosController < ApplicationController
 
   def show
     the_id = params.fetch("path_id")
+    @signed_user_id = session.fetch(:user_id)
 
     matching_photos = Photo.where({ :id => the_id })
 
@@ -57,4 +58,29 @@ class PhotosController < ApplicationController
 
     redirect_to("/photos", { :notice => "Photo deleted successfully."} )
   end
+
+
+  def like
+    the_like = Like.new
+    the_like.photo_id = params.fetch("query_photo_id")
+    the_like.fan_id = params.fetch("query_fan_id")
+
+    if the_like.valid?
+      the_like.save
+      redirect_to("/photos/#{the_like.photo_id}", { :notice => "Like created successfully." })
+    else
+      redirect_to("/photos/#{the_like.photo_id}", { :alert => the_photo.errors.full_messages.to_sentence })
+    end
+  end
+
+  def unlike
+    the_id = params.fetch("photo_id")
+    @signed_user_id = session.fetch(:user_id)
+    the_like = Like.where({ :photo_id => the_id }).where({:fan_id => @signed_user_id}).at(0)
+
+    the_like.destroy
+
+    redirect_to("/photos/#{the_id}", { :notice => "Like deleted successfully."} )
+  end
+
 end

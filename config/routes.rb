@@ -24,6 +24,13 @@ Rails.application.routes.draw do
   # DELETE
   get("/delete_photo/:path_id", { :controller => "photos", :action => "destroy" })
 
+
+  # Add Like
+  post("/insert_like" , {:controller => "photos" , :action => "like"})
+
+  # Delete like
+  get("/unlike/:photo_id" , {:controller => "photos" , :action => "unlike"})
+
   #------------------------------
 
   # Routes for the User account:

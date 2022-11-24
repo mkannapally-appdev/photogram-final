@@ -28,4 +28,14 @@ class Photo < ApplicationRecord
     return Like.where({ :photo_id => self.id })
   end
   
+  def fans
+    array_of_user_ids = self.likes.map_relation_to_array(:fan_id)
+
+    return User.where({ :id => array_of_user_ids })
+  end
+
+  def fan_list
+    return self.fans.map_relation_to_array(:username).to_sentence
+  end
+  
 end
