@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   get("/users/:username" , {:controller => "users" , :action => "show"})
 
+  get("/users/:username/feed" , {:controller => "users" , :action => "user_feed"})
+
   get("/" , {:controller => "users" , :action => "index"})
 
 
