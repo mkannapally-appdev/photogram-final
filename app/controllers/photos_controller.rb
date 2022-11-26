@@ -40,12 +40,10 @@ class PhotosController < ApplicationController
   def update
     the_id = params.fetch("path_id")
     the_photo = Photo.where({ :id => the_id }).at(0)
-
+    the_photo.owner_id = session.fetch(:user_id)
     the_photo.image = params.fetch("query_image")
     the_photo.caption = params.fetch("query_caption")
-    the_photo.owner_id = params.fetch("query_owner_id")
-    the_photo.likes_count = params.fetch("query_likes_count")
-    the_photo.comments_count = params.fetch("query_comments_count")
+
 
     if the_photo.valid?
       the_photo.save
@@ -86,6 +84,19 @@ class PhotosController < ApplicationController
     the_like.destroy
 
     redirect_to("/photos/#{the_photo_id}", { :notice => "Like deleted successfully."} )
+  end
+
+  def create_comment
+    comment = Comment.new
+    photo = Photo.new
+    
+    comment.author_id = session.fetch(:user_id)
+    comment.photo_id = params.fetch("query_photo_id")
+    comment.body = params.fetch("query_body")
+
+    comment.save
+
+    redirect_to("/photos/#{comment.photo_id}")
   end
 
 end

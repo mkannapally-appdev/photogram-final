@@ -61,6 +61,14 @@ Rails.application.routes.draw do
   get("/user_sign_out", { :controller => "user_authentication", :action => "destroy_cookies" })
              
   #------------------------------
+# Comment routes
+
+  # CREATE
+  post("/add_new_comment", { :controller => "photos", :action => "create_comment" })
+
+  # DELETE
+
+  get("/delete_comment/:the_comment_id", { :controller => "comments", :action => "destroy"})
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

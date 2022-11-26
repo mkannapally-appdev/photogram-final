@@ -37,14 +37,14 @@
         Likes count
       </dt>
       <dd>
-        <%= @the_photo.likes_count %>
+        <%= @the_photo.likes.count %>
       </dd>
 
       <dt>
         Comments count
       </dt>
       <dd>
-        <%= @the_photo.comments_count %>
+        <%= @the_photo.comments.count %>
       </dd>
       
       <dt> Fans  </dt>
@@ -75,9 +75,9 @@
     <% if(session.fetch(:user_id) == @the_photo.poster.id) %>
       <dt> Edit photo </dt>
       <dd>   
-        <form action="/modify_photo/<%= @the_photo.id %>"  method="post" >
+        <form action="/modify_photo/<%= @the_photo.id %>"  method="post" enctype="multipart/form-data">
           <label for="image_box"> Image </label>
-          <input type="text" id="image_box" name="query_image" value="<%= @the_photo.image %>">
+          <input type="file" id="image_box" name="query_image" value="<%= @the_photo.image %>" class="form-control">
 
           <label for="caption_box"> Caption </label>
           <textarea id="caption_box" name="query_caption"><%= @the_photo.caption %></textarea>
@@ -126,7 +126,10 @@
 <h2>  Add a new comment  </h2>
   <form action="/add_new_comment" method="post">
     <label for="new_comment" >  Comment  </label>
-    <textarea id="new_comment"> Enter a comment... </textarea>
+    <textarea id="new_comment" name="query_body" placeholder="Enter a comment...">  </textarea>
+
+    <label for="photo_id">  </label>
+    <input type="hidden" id="photo_id" name="query_photo_id" value="<%= @the_photo.id %>">
 
     <button>  Add comment  </button>
   </form>
