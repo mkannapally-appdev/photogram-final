@@ -58,7 +58,7 @@
       <dt> Add a Fan </dt>
       <dd>
         <% if Like.where({:photo_id => @the_photo.id}).where({:fan_id => @signed_user_id}).at(0) != nil %>
-            <a href="/unlike/<%=@the_photo.id %>"> Unlike  </a>
+            <a href="/delete_like/<%= Like.where(:photo_id => @the_photo.id).where(:fan_id => @signed_user_id).at(0).id %>"> Unlike  </a>
         <% else  %>
           <form action="/insert_like" method="post">
             <label for="photo_id">   </label>

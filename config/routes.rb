@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   post("/insert_like" , {:controller => "photos" , :action => "like"})
 
   # Delete like
-  get("/unlike/:photo_id" , {:controller => "photos" , :action => "unlike"})
+  get("/delete_like/:path_id" , {:controller => "photos" , :action => "unlike"})
 
   #------------------------------
 

@@ -9,10 +9,10 @@
 <% if session.fetch(:user_id) != nil %>
 
 <div>
-    <form action="/insert_photo" method="post">
+    <form action="/insert_photo" method="post" enctype="multipart/form-data">
         
         <label for="image_box"> Image </label>
-        <input type="text" id="image_box" name="query_image">
+        <input type="file" id="image_box" name="query_image" >
 
         <label for="caption_box"> Caption </label>
         <textarea id="caption_box" name="query_caption" rows="2" placeholder="Enter a caption for the photo"></textarea>
